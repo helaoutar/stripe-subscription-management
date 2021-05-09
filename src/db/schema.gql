@@ -1,4 +1,4 @@
 type User {
   netlifyID: ID!
-  stripID: ID!
+  stripeID: ID!
 }

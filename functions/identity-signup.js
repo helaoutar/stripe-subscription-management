@@ -1,9 +1,16 @@
 /* eslint-disable no-undef */
 const faunaFetch = require("./utils/fauna").faunaFetch;
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 exports.handler = async (event) => {
   const { user } = JSON.parse(event.body);
-  const stripeID = 1;
+
+  const customer = await stripe.customers.create({ email: user.email });
+
+  await stripe.subscriptions.create({
+    customer: customer.id,
+    items: [{ price: process.env.STRIPE_DEFAULT_PRICE_PLAN }],
+  });
 
   await faunaFetch({
     query: `
@@ -16,7 +23,7 @@ exports.handler = async (event) => {
     `,
     variables: {
       netlifyID: user.id,
-      stripeID,
+      stripeID: customer.id,
     },
   });
 
