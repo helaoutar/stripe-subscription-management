@@ -16,7 +16,10 @@ const Home = () => {
       <h1>Sign Up for Premium content</h1>
 
       <div className="user-info">
-        <button id="left">Log In</button>
+        {}
+        <button id="left" onClick={() => setDialog(true)}>
+          Log In
+        </button>
         <button id="right">Sign Up</button>
       </div>
 
@@ -34,7 +37,23 @@ const Home = () => {
           <div className="premium"></div>
         </div>
       </div>
-      {!dialog && <button onClick={() => setDialog(true)}>Log in</button>}
+      <h2>Change subscription</h2>
+      <button
+        onClick={() => {
+          fetch("./.netlify/functions/create-manage-link", {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${identity?.user?.token?.access_token}`,
+            },
+          })
+            .then((res) => res.json())
+            .then((res) => {
+              window.location.href = res;
+            });
+        }}
+      >
+        manage subscription
+      </button>
       {dialog && (
         <IdentityModal
           showDialog={dialog}
