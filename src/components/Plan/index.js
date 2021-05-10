@@ -86,6 +86,7 @@ const Plan = ({
   isCurrent,
   icon,
   isPopular,
+  pricing,
 }) => {
   const stripe = useStripe();
 
@@ -136,7 +137,7 @@ const Plan = ({
           fetch("/.netlify/functions/create-checkout-session", {
             method: "POST",
             body: JSON.stringify({
-              priceId: "price_1IpIsyK5rzWBzreBkYJ4CoGg",
+              priceId: pricing.monthly,
             }),
           })
             .then((res) => res.json())
