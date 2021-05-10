@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { CheckOutlined } from "@ant-design/icons";
 import { Button, Tag } from "antd";
 import { useStripe } from "@stripe/react-stripe-js";
+import { useIdentityContext } from "react-netlify-identity";
 
 const Container = styled.div`
   display: flex;
@@ -89,6 +90,8 @@ const Plan = ({
   pricing,
 }) => {
   const stripe = useStripe();
+  const identity = useIdentityContext();
+  const { user } = identity;
 
   return (
     <Container isPopular={isPopular}>
@@ -139,6 +142,9 @@ const Plan = ({
             body: JSON.stringify({
               priceId: pricing.monthly,
             }),
+            headers: {
+              Authorization: `Bearer ${user.token.access_token}`,
+            },
           })
             .then((res) => res.json())
             .then((data) => {

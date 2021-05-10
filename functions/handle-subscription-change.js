@@ -31,6 +31,8 @@ exports.handler = async ({ body, headers }, context) => {
       },
     });
 
+    console.log("customer is", JSON.stringify(subscription, null, 2));
+
     const { netlifyID } = result.data.getUserByStripeID;
 
     // take the first word of the plan name and use it as the role
