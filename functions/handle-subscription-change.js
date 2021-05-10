@@ -14,7 +14,7 @@ exports.handler = async ({ body, headers }, context) => {
 
     console.log(JSON.stringify(stripeEvent, null, 2));
     // bail if this is not a subscription update event
-    if (stripeEvent.type !== "checkout.session.completed") return;
+    if (stripeEvent.type !== "customer.subscription.updated") return;
 
     const subscription = stripeEvent.data.object;
 
