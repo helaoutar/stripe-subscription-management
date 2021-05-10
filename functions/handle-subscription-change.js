@@ -13,7 +13,7 @@ exports.handler = async ({ body, headers }, context) => {
     );
 
     // bail if this is not a subscription update event
-    if (stripeEvent.type !== "customer.subscription.updated") return;
+    if (stripeEvent.type !== "checkout.session.completed") return;
 
     const subscription = stripeEvent.data.object;
 
@@ -34,12 +34,10 @@ exports.handler = async ({ body, headers }, context) => {
 
     // take the first word of the plan name and use it as the role
     const plan = subscription.items.data[0].plan.nickname;
-    console.log(JSON.stringify(subscription, null, 2));
     const role = plan.split("-")[0].toLowerCase();
 
     // send a call to the Netlify Identity admin API to update the user role
     const { identity } = context.clientContext;
-    console.log(JSON.stringify(context.clientContext, null, 2));
     await fetch(`${identity.url}/admin/users/${netlifyID}`, {
       method: "PUT",
       headers: {

@@ -11,14 +11,18 @@
     "@reach/dialog": "^0.15.0",
     "@reach/tabs": "^0.15.0",
     "@reach/visually-hidden": "^0.15.0",
+    "@stripe/react-stripe-js": "^1.4.0",
+    "@stripe/stripe-js": "^1.14.0",
     "antd": "^4.15.4",
+    "babel-plugin-styled-components": "^1.12.0",
     "next": "10.2.0",
     "node-fetch": "^2.6.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-netlify-identity": "^0.2.5",
     "react-netlify-identity-widget": "^0.2.7",
-    "stripe": "^8.148.0"
+    "stripe": "^8.148.0",
+    "styled-components": "^5.3.0"
   },
   "devDependencies": {
     "eslint": "^7.26.0",
