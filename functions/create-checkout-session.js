@@ -10,8 +10,6 @@ exports.handler = async (event, context) => {
     user,
   } = context.clientContext;
 
-  console.log("ids are", user.sub);
-
   try {
     const result = await faunaFetch({
       query: `

@@ -16,6 +16,7 @@ const Container = styled.div`
   padding: 15px 25px;
   border-radius: 10px;
   position: relative;
+  box-shadow: 1px 1px 5px rgba(196, 196, 196, 0.27);
 
   ${(props) =>
     props.isPopular
@@ -88,6 +89,7 @@ const Plan = ({
   icon,
   isPopular,
   pricing,
+  showDialog,
 }) => {
   const stripe = useStripe();
   const identity = useIdentityContext();
@@ -137,6 +139,10 @@ const Plan = ({
         size={"medium"}
         style={{ height: 40, padding: "0 50px", fontSize: 12 }}
         onClick={() => {
+          if (!user) {
+            return showDialog();
+          }
+
           fetch("/.netlify/functions/create-checkout-session", {
             method: "POST",
             body: JSON.stringify({

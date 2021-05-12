@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Button, Menu } from "antd";
+import { useEffect, useState } from "react";
+import { Menu } from "antd";
 import {
   IdentityModal,
   useIdentityContext,
@@ -72,6 +72,10 @@ const Home = () => {
 
   const { user, logoutUser } = identity;
 
+  useEffect(() => {
+    identity.getFreshJWT();
+  }, []);
+
   console.log(identity);
 
   return (
@@ -90,7 +94,7 @@ const Home = () => {
       <Title>Subscription plans</Title>
       <PlansContainer>
         {plans.map((plan) => (
-          <Plan key={plan.name} {...plan} />
+          <Plan key={plan.name} {...plan} showDialog={() => setDialog(true)} />
         ))}
       </PlansContainer>
       {dialog && (
