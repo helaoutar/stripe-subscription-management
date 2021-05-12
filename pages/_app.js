@@ -11,7 +11,8 @@ const stripePromise = loadStripe(
 );
 
 function MyApp({ Component, pageProps }) {
-  const url = "https://mystifying-lovelace-3f5e80.netlify.app";
+  // TODO: get this from process.env
+  const url = "https://helaoutar-stripe-subs.netlify.app/";
 
   return (
     <IdentityContextProvider url={url}>
